@@ -2,9 +2,6 @@ import json
 import os
 from typing import Any, Dict, List
 
-from src.category import Category
-from src.product import Product
-
 
 def read_json(path: str) -> List[Dict[str, Any]] | Any:
     """Функция принимает на вход путь до json-файла, и преобразует его python объект"""
@@ -17,6 +14,10 @@ def read_json(path: str) -> List[Dict[str, Any]] | Any:
 def get_objects(data: list) -> list:
     """Функция принимает на вход список с данными, и возвращает список объектов класса Category содержащимися
     в них списком объектов класса Product"""
+    # Импортируем классы внутри функции, чтобы избежать циклических импортов
+    from src.category import Category
+    from src.product import Product
+
     categories = []
     for category in data:
         products = []
@@ -25,11 +26,3 @@ def get_objects(data: list) -> list:
             category["products"] = products
         categories.append(Category(**category))
     return categories
-
-
-if __name__ == "__main__":
-    raw_data = read_json("../data/products.json")
-    objs = get_objects(raw_data)
-
-    print(objs[0].name)
-    print(objs[0].products)

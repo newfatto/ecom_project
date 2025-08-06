@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 import pytest
 
 from src.category import Category
@@ -20,3 +23,22 @@ def category1() -> Category:
             Product("Xiaomi Redmi Note 11", "1024GB, Синий", 31000.0, 14),
         ],
     )
+
+
+@pytest.fixture
+def sample_data(tmp_path: Path) -> Path:
+    """Создаёт временный json-файл с тестовыми данными"""
+    data = [
+        {
+            "name": "Смартфоны",
+            "description": "Для связи и жизни",
+            "products": [
+                {"name": "Xiaomi 13", "description": "128GB", "price": 55000.0, "quantity": 10},
+                {"name": "Samsung A54", "description": "256GB", "price": 68000.0, "quantity": 7},
+            ],
+        }
+    ]
+    file_path = tmp_path / "test_products.json"
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    return file_path
