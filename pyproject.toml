@@ -55,4 +55,4 @@ exclude = '''
 '''
 
 [tool.pytest.ini_options]
-addopts = "--cov"
+addopts = "--cov=src --cov-report=term-missing"
