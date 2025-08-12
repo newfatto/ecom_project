@@ -66,3 +66,13 @@ def test_price_setter_declines_decrease(monkeypatch: MonkeyPatch) -> None:
     product.price = 85000.0
 
     assert product.price == 90000.0
+
+
+def test_product_str(product1: Product) -> None:
+    """Тест проверяет корректное строковое отображение продукта для пользователя"""
+    assert str(product1) == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+
+
+def test_product_add(product1: Product, product2: Product) -> None:
+    """Тест проверяет корректное сложение стоимости всех элементов двух продуктов"""
+    assert product1 + product2 == 2580000.0
