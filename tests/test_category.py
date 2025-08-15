@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 from src.product import Product
 
@@ -75,6 +77,10 @@ def test_category_add_product(category1: Category) -> None:
     assert "Samsung Galaxy S23 Ultra" in category1.products
     assert category1.products.count("руб. Остаток:") == 4
 
+def test_category_add_product_error(category1):
+    new_product = 'не продукт'
+    with pytest.raises(TypeError):
+        category1.add_product(new_product)
 
 def test_products_list_returns_list_of_products(category1: Category) -> None:
     """Проверяет, что products_list возвращает список объектов Product в правильном порядке."""

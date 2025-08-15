@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Optional
+import pytest
 
 
 class Product:
@@ -17,7 +18,10 @@ class Product:
 
     def __add__(self, other: "Product") -> Any:
         """Получения общей стоимости всех экземпляров двух продуктов"""
-        return self.quantity * self.__price + other.quantity * other.__price
+        if type(other) == type(self):
+            return self.quantity * self.__price + other.quantity * other.__price
+        else:
+            raise TypeError
 
     @classmethod
     def new_product(cls, product: Dict[str, Any], category_list: Optional[List[Dict[str, Any]]] = None) -> "Product":
@@ -54,7 +58,7 @@ class Product:
 
 class Smartphone(Product):
     def __init__(self, name: str, description: str, price: float, quantity: int,
-                 efficiency: str, model: str, memory: str, color: str) -> None:
+                 efficiency: float, model: str, memory: int, color: str) -> None:
         """ Инициализация экземпляра класса Смартфон """
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency

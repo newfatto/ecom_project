@@ -1,6 +1,7 @@
 from _pytest.monkeypatch import MonkeyPatch
+import pytest
 
-from src.product import Product
+from src.product import Product, LawnGrass
 
 
 def test_product_init(product1: Product) -> None:
@@ -76,3 +77,49 @@ def test_product_str(product1: Product) -> None:
 def test_product_add(product1: Product, product2: Product) -> None:
     """Тест проверяет корректное сложение стоимости всех элементов двух продуктов"""
     assert product1 + product2 == 2580000.0
+
+
+
+def test_smartphone_init(smartphone1):
+    assert smartphone1.name == 'Samsung Galaxy S23 Ultra'
+    assert smartphone1.description == '256GB, Серый цвет, 200MP камера'
+    assert smartphone1.price == 180000.0
+    assert smartphone1.quantity == 5
+    assert smartphone1.efficiency == 95.5
+    assert smartphone1.model == 'S23 Ultra'
+    assert smartphone1.memory == 256
+    assert smartphone1.color == 'Серый'
+
+def test_smartphone_add(smartphone1, smartphone2):
+    assert smartphone1 + smartphone2 == 2580000.0
+
+def test_smartphone_add_error(smartphone1):
+    with pytest.raises(TypeError):
+        result = smartphone1 + 1
+
+def test_lawngrass_init(grass1):
+    assert grass1.name == 'Газонная трава'
+    assert grass1.description == 'Элитная трава для газона'
+    assert grass1.price == 500.0
+    assert grass1.quantity == 20
+    assert grass1.country == 'Россия'
+    assert grass1.germination_period == '7 дней'
+    assert grass1.color == ('Зеленый')
+
+
+def test_lawngrass_add(grass1, grass2):
+    assert grass1 + grass2 == 16750.0
+
+def test_lawngrass_add_error(grass1):
+    with pytest.raises(TypeError):
+        result = grass1 + 1
+
+
+
+
+
+
+
+
+
+
