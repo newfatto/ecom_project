@@ -51,3 +51,24 @@ class Product:
                     self.__price = new_price
                 else:
                     print("Стоимость не изменилась")
+
+class Smartphone(Product):
+    def __init__(self, name: str, description: str, price: float, quantity: int,
+                 efficiency: str, model: str, memory: str, color: str) -> None:
+        """ Инициализация экземпляра класса Смартфон """
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    def __init__(self, name: str, description: str, price: float, quantity: int,
+                 country: str, germination_period: str, color: str) -> None:
+        """ Инициализация экземпляра класса Смартфон """
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
