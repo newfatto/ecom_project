@@ -74,3 +74,18 @@ def test_category_add_product(category1: Category) -> None:
 
     assert "Samsung Galaxy S23 Ultra" in category1.products
     assert category1.products.count("руб. Остаток:") == 4
+
+
+def test_products_list_returns_list_of_products(category1: Category) -> None:
+    """Проверяет, что products_list возвращает список объектов Product в правильном порядке."""
+    products = category1.products_list
+    assert [p.name for p in products] == [
+        "Samsung Galaxy S23 Ultra",
+        "Iphone 15",
+        "Xiaomi Redmi Note 11",
+    ]
+
+
+def test_category_str(category1: Category) -> None:
+    """Тест проверяет корректное строковое отображение категории для пользователя"""
+    assert str(category1) == "Смартфоны, количество продуктов: 27 шт."

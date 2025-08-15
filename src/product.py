@@ -11,6 +11,14 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        """Строковое отображение информации о продукте для пользователя"""
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: "Product") -> Any:
+        """Получения общей стоимости всех экземпляров двух продуктов"""
+        return self.quantity * self.__price + other.quantity * other.__price
+
     @classmethod
     def new_product(cls, product: Dict[str, Any], category_list: Optional[List[Dict[str, Any]]] = None) -> "Product":
         name = product["name"]
