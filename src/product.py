@@ -1,5 +1,4 @@
 from typing import Any, Dict, List, Optional
-import pytest
 
 
 class Product:
@@ -18,10 +17,9 @@ class Product:
 
     def __add__(self, other: "Product") -> Any:
         """Получения общей стоимости всех экземпляров двух продуктов"""
-        if type(other) == type(self):
-            return self.quantity * self.__price + other.quantity * other.__price
-        else:
-            raise TypeError
+        if type(self) is not type(other):
+            raise TypeError("Нельзя складывать товары разных классов")
+        return self.price * self.quantity + other.price * other.quantity
 
     @classmethod
     def new_product(cls, product: Dict[str, Any], category_list: Optional[List[Dict[str, Any]]] = None) -> "Product":
@@ -56,10 +54,20 @@ class Product:
                 else:
                     print("Стоимость не изменилась")
 
+
 class Smartphone(Product):
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 efficiency: float, model: str, memory: int, color: str) -> None:
-        """ Инициализация экземпляра класса Смартфон """
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ) -> None:
+        """Инициализация экземпляра класса Смартфон"""
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
@@ -68,11 +76,18 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-    def __init__(self, name: str, description: str, price: float, quantity: int,
-                 country: str, germination_period: str, color: str) -> None:
-        """ Инициализация экземпляра класса Смартфон """
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
+    ) -> None:
+        """Инициализация экземпляра класса Смартфон"""
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
         self.color = color
-
