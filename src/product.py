@@ -1,4 +1,5 @@
 from typing import Any, Dict, List, Optional
+
 from src.base import BaseProduct
 from src.mixins import MixinPrint
 

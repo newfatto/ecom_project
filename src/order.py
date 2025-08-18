@@ -1,8 +1,10 @@
-from src.base import ForProducts
-from typing import Optional, List
+from typing import Optional
+
+from src.base import ForProductList
 from src.product import Product
 
-class Order(ForProducts):
+
+class Order(ForProductList):
     """Заказ: ровно один товар + его количество + итоговая стоимость."""
 
     def __init__(self, product: Optional[Product] = None, quantity: int = 0) -> None:
@@ -26,13 +28,6 @@ class Order(ForProducts):
             self.quantity = 1
 
     @property
-    def products_list(self) -> List[Product]:
+    def products_list(self) -> list[Product] | str:
         return [self.product] if self.product else "В заказе отсутствует товар"
 
-if __name__ == '__main__':
-    order1 = Order()
-    print(order1)
-
-    product2 = Product("Iphone 15", "512GB, Gray space", 210000.0, 8)
-    order1 = Order(product2)
-    print(order1)

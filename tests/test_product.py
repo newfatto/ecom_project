@@ -99,7 +99,7 @@ def test_smartphone_add(smartphone1: Smartphone, smartphone2: Smartphone) -> Non
 def test_smartphone_add_error(smartphone1: Smartphone) -> None:
     """Проверка возникновения ошибки при попытке сложения экземпляра класса LawnGrass с другим объектом"""
     with pytest.raises(TypeError):
-        smartphone1 + 1 # type: ignore[operator]
+        smartphone1 + 1  # type: ignore[operator]
 
 
 def test_lawngrass_init(grass1: LawnGrass) -> None:
@@ -121,4 +121,4 @@ def test_lawngrass_add(grass1: LawnGrass, grass2: LawnGrass) -> None:
 def test_lawngrass_add_error(grass1: LawnGrass) -> None:
     """Проверка возникновения ошибки при попытке сложения экземпляра класса LawnGrass с другим объектом"""
     with pytest.raises(TypeError):
-        grass1 + 1 # type: ignore[operator]
+        grass1 + 1  # type: ignore[operator]

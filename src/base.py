@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from src.product import Product
@@ -13,9 +13,8 @@ class BaseProduct(ABC):
         pass
 
 
-class ForProducts(ABC):
+class ForProductList(ABC):
 
-    @classmethod
     @abstractmethod
     def add_product(cls, *args: Any, **kwargs: Any) -> Any:
         """Добавить продукт (в заказ — один, в категорию — в список)."""
@@ -23,6 +22,6 @@ class ForProducts(ABC):
 
     @property
     @abstractmethod
-    def products_list(self) -> List["Product"]:
+    def products_list(self) -> list["Product"] | str:
         """Список продуктов (в заказе длина будет 0 или 1)."""
         pass
