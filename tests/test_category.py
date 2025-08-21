@@ -1,10 +1,12 @@
 import pytest
+from _pytest.capture import CaptureFixture
 
 from src.category import Category
+from src.exceptions import ZeroException
 from src.product import Product
 
 
-def test_category_init(category1: Category) -> None:
+def test_category_init(capsys: CaptureFixture, category1: Category) -> None:
     """Тестирование корректной инициализации класса Категория"""
     assert category1.name == "Смартфоны"
     assert (
@@ -15,6 +17,14 @@ def test_category_init(category1: Category) -> None:
 
     assert category1.category_count == 1
     assert category1.product_count == 3
+
+    good = Product("Ок товар", "Описание", 200.0, 2)
+    initial_count = Category.product_count
+    category1.add_product(good)
+    out = capsys.readouterr().out
+    assert "Продукт успешно добавлен в категорию" in out
+    assert "Завершена попытка добавления продукта в категорию" in out
+    assert Category.product_count == initial_count + 1
 
 
 def test_add_product(category1: Category) -> None:
@@ -97,3 +107,21 @@ def test_products_list_returns_list_of_products(category1: Category) -> None:
 def test_category_str(category1: Category) -> None:
     """Тест проверяет корректное строковое отображение категории для пользователя"""
     assert str(category1) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_category_middle_price(category1: Category, category_empty: Category) -> None:
+    """Тест проверяет корректный подсчёт средней стоимости продуктов в категории и
+    отрабатывает ошибку ZeroDivisionError при передаче пустого списка"""
+    assert category1.middle_price() == 140333.33333333334
+    assert category_empty.middle_price() == 0  # В случае возникновения ZeroDivisionError
+
+
+def test_category_add_product_zero_error(capsys: CaptureFixture, category1: Category, product1: Product) -> None:
+    """Проверка возникновения ошибки ZeroException при попытке добавления в категорию продукта с нулевым количеством"""
+    product1.quantity = 0
+    with pytest.raises(ZeroException, match="Невозможно добавить в категорию товар с нулевым количеством"):
+        category1.add_product(product1)
+
+    out = capsys.readouterr().out
+    assert "Невозможно добавить в категорию товар с нулевым количеством" in out
+    assert "Завершена попытка добавления продукта в категорию" in out

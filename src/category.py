@@ -1,6 +1,7 @@
 from typing import List
 
 from src.base import ForProductList
+from src.exceptions import ZeroException
 from src.product import Product
 
 
@@ -27,8 +28,18 @@ class Category(ForProductList):
 
     def add_product(self, product: Product) -> None:
         if isinstance(product, Product):
-            self.__products.append(product)
-            Category.product_count += 1
+            try:
+                if product.quantity == 0:
+                    raise ZeroException("Невозможно добавить в категорию товар с нулевым количеством")
+                else:
+                    self.__products.append(product)
+                    Category.product_count += 1
+                    print("Продукт успешно добавлен в категорию")
+            except ZeroException as e:
+                print(str(e))
+                raise
+            finally:
+                print("Завершена попытка добавления продукта в категорию")
         else:
             raise TypeError
 
