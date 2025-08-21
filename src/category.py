@@ -1,9 +1,10 @@
 from typing import List
 
+from src.base import ForProductList
 from src.product import Product
 
 
-class Category:
+class Category(ForProductList):
     """Класс Категория"""
 
     category_count = 0

@@ -81,7 +81,7 @@ def test_category_add_product(category1: Category) -> None:
 def test_category_add_product_error(category1: Category) -> None:
     new_product = "не продукт"
     with pytest.raises(TypeError):
-        category1.add_product(new_product)
+        category1.add_product(new_product)  # type: ignore[arg-type]
 
 
 def test_products_list_returns_list_of_products(category1: Category) -> None:

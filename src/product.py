@@ -1,7 +1,10 @@
 from typing import Any, Dict, List, Optional
 
+from src.base import BaseProduct
+from src.mixins import MixinPrint
 
-class Product:
+
+class Product(BaseProduct, MixinPrint):
     """Класс Продукт"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -10,6 +13,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __str__(self) -> str:
         """Строковое отображение информации о продукте для пользователя"""
